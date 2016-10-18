@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.left{
+			width: 60%;
+			float: left;
+		}
+		.right{
+			width: 40%;
+			float: right;
+		}
+		.contest{
+			width: 70%;
+			height:60px;
+			border:1px solid #333;
+		}
+	</style>
+	<script>
+        function colTest(obj,obj2){
+            var l1=obj.offsetLeft;
+            var r1=obj.offsetWidth+l1;
+            var t1=obj.offsetTop;
+            var b1=obj.offsetHeight+t1;
+
+            var l2=obj2.offsetLeft;
+            var r2=obj2.offsetWidth+l2;
+            var t2=obj2.offsetTop;
+            var b2=obj2.offsetHeight+t2;
+
+            var w2=obj2.offsetWidth*0.4;
+            
+            if(l1>l2 && r1<r2 && t1>t2  && b1<b2){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+        function colTest2(obj,obj2){
+            var l1=obj.offsetLeft;
+            var r1=obj.offsetWidth+l1;
+            var t1=obj.offsetTop;
+            var b1=obj.offsetHeight+t1;
+
+            var l2=obj2.offsetLeft;
+            var r2=obj2.offsetWidth+l2;
+            var t2=obj2.offsetTop;
+            var b2=obj2.offsetHeight+t2;
+
+            var w2=obj2.offsetWidth*0.4;
+            
+            if(l1>l2 && r1<r2 && t1>t2  && b1<b2){
+                return true;
+            }else{
+                return false;
+            }
+        }
+
+       
+
+        // },false)
+        function addTop(obj){
+        	var h=40
+        	for(var i=0; i<obj.length; i++){
+        		obj[i].style.top = (i+1)*h+'px';
+        		console.log("999",obj[i].style.top);
+        	}
+        }
+        function doMove(obj,obj1){
+            var oldX=obj.offsetLeft;
+            var oldY=obj.offsetTop;
+        	obj.addEventListener('touchstart',function(ev){
+
+            	var self=this;
+                // if(self.bbb) self.bbb = false;
+                var disX=ev.targetTouches[0].pageX-this.offsetLeft;
+                var disY=ev.targetTouches[0].pageY-this.offsetTop;
+
+                console.log("weizhi",oldX)
+                console.log("zuobiao",oldY)
+
+                for(var i = 0; i < obj1.length; i++) {
+                    if(colTest(self, obj1[i])) {
+                        obj1[i].flage =0;
+                        self.bbb = false;
+                    }
+                }
+
+                function fnMove(ev){
+                    var x=ev.targetTouches[0].pageX-disX;
+                    var y=ev.targetTouches[0].pageY-disY;
+                    if(x<0)x=0;
+                    if(x>=document.documentElement.clientWidth-self.offsetWidth){
+                        x=document.documentElement.clientWidth-self.offsetWidth
+                    }
+                    if(y<=0)y=0;
+                    if(y>=document.documentElement.clientHeight-self.offsetHeight){
+                        y=document.documentElement.clientHeight-self.offsetHeight
+                    }
+                    self.style.left=x+'px';
+                    self.style.top=y+'px';
+                }
+
+                function fnEnd(){
+
+                    for(var i = 0; i < obj1.length; i++) {
+                        if(colTest(self, obj1[i])) {
+                            console.log('碰上了');
+                            self.bbb = true;
+                            if(obj1[i].flage) {
+                                obj1[i].flage = 2
+                            }else {
+                                obj1[i].flage = 1;
+                            }
+                            self.index = i;
+                            console.log(obj1[i].flage)
+                            break;
+                        }else {
+                             console.log('没有碰上了')
+
+                             // obj1[i].flage--
+                        }
+                    }
+                    if(!self.bbb) {
+                        self.style.left=oldX+'px';
+                        self.style.top=oldY+'px';   
+                    }else if(obj1[self.index].flage == 2) {
+                        self.style.left=oldX+'px';
+                        self.style.top=oldY+'px';   
+                    }
+
+
+                    document.removeEventListener('touchmove',fnMove,false);
+                    document.removeEventListener('touchend',fnEnd,false);
+                }
+
+                document.addEventListener('touchmove',fnMove,false);
+                document.addEventListener('touchend',fnEnd,false);
+                ev.preventDefault();
+            },false);
+        }
+        function allDrag(obj1,obj2){
+            for (var i = 0; i < obj1.length; i++) {
+
+                        doMove(obj1[i],obj2);
+
+	        	
+            }
+        }
+        window.onload=function(){
+        	var oUl=document.getElementById('right');
+        	var aDiv=oUl.getElementsByTagName('div');
+        	var oOl=document.querySelector('.left')
+        	var aCon=oOl.getElementsByTagName('div');
+        	addTop(aDiv);
+        	var oUl=document.querySelector('.left');
+            var aCon=oUl.getElementsByTagName('div');
+            var oOl=document.querySelector('.right');
+            var aMove=oOl.getElementsByTagName('div')
+
+            allDrag(aMove,aCon);
+            
+
+
+            var oBox=document.querySelector('.moveblock');
+            var oCon=document.querySelector('.contest');
+            var oLi=document.querySelector('.oli');
+
+        	console.log("999",aDiv);
+        }
+    </script>
+</head>
+<body style="position:relative;">
+	<ul class="left">
+		<li>
+			<p>Do not leave any food here.</p>
+			<div class="contest"></div>
+		</li>
+		<li>
+			<p>Do not leave any food here.</p>
+			<div class="contest"></div>
+		</li>
+		<li>
+			<p>Do not leave any food here.</p>
+			<div class="contest"></div>
+		</li>
+		<li>
+			<p>Do not leave any food here.</p>
+			<div class="contest"></div>
+		</li>
+		<li>
+			<p>Do not leave any food here.</p>
+			<div class="contest"></div>
+		</li>
+	</ul>
+	<ol class="right" id="right">
+		<li istrue="true" class="oli">
+			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+		</li>
+		<li istrue="false" class="oli">
+			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+		</li>
+		<li istrue="false" class="oli">
+			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+		</li>
+		<li istrue="false" class="oli">
+			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+		</li>
+		<li istrue="false" class="oli">
+			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+		</li>
+		<li istrue="false" class="oli">
+			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+		</li>
+		<li istrue="false" class="oli">
+			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+		</li>
+	</ol>
+</body>
+</html>
