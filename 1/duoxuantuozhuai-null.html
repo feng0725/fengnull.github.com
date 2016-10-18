@@ -74,6 +74,9 @@
         		console.log("999",obj[i].style.top);
         	}
         }
+        document.addEventListener('touchstart', function(ev) {
+            ev.preventDefault();
+        },false)
         function doMove(obj,obj1){
             var oldX=obj.offsetLeft;
             var oldY=obj.offsetTop;
