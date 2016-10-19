@@ -6,9 +6,19 @@
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
 	<style>
 		*{
-			margin: 0;
-			padding: 0;
+			/*margin: 0;*/
+			/*padding: 0;*/
 		}
+                        div,ul,li,p,div {
+                            padding: 0;
+                            margin: 0;
+                        }
+                        ol {
+
+                        }
+                        li {
+                            list-style: none;
+                        }
 		.left{
 			width: 60%;
 			float: left;
@@ -18,7 +28,7 @@
 			float: right;
 		}
 		.contest{
-			width: 70%;
+			width: 60%;
 			height:60px;
 			border:1px solid #333;
 		}
@@ -44,38 +54,20 @@
             }
         }
 
-        function colTest2(obj,obj2){
-            var l1=obj.offsetLeft;
-            var r1=obj.offsetWidth+l1;
-            var t1=obj.offsetTop;
-            var b1=obj.offsetHeight+t1;
-
-            var l2=obj2.offsetLeft;
-            var r2=obj2.offsetWidth+l2;
-            var t2=obj2.offsetTop;
-            var b2=obj2.offsetHeight+t2;
-
-            var w2=obj2.offsetWidth*0.4;
-            
-            if(l1>l2 && r1<r2 && t1>t2  && b1<b2){
-                return true;
-            }else{
-                return false;
-            }
-        }
-
        
 
         // },false)
         function addTop(obj){
-        	var h=40
+        	var h=50
         	for(var i=0; i<obj.length; i++){
         		obj[i].style.top = (i+1)*h+'px';
         		console.log("999",obj[i].style.top);
         	}
         }
         document.addEventListener('touchstart', function(ev) {
-            ev.preventDefault();
+            document.addEventListener('touchmove', function(ev) {
+                ev.preventDefault();
+            },false)
         },false)
         function doMove(obj,obj1){
             var oldX=obj.offsetLeft;
@@ -206,25 +198,25 @@
 	</ul>
 	<ol class="right" id="right">
 		<li istrue="true" class="oli">
-			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+			<div style="width:40px; height:40px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
 		</li>
 		<li istrue="false" class="oli">
-			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+			<div style="width:40px; height:40px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
 		</li>
 		<li istrue="false" class="oli">
-			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+			<div style="width:40px; height:40px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
 		</li>
 		<li istrue="false" class="oli">
-			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+			<div style="width:40px; height:40px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
 		</li>
 		<li istrue="false" class="oli">
-			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+			<div style="width:40px; height:40px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
 		</li>
 		<li istrue="false" class="oli">
-			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+			<div style="width:40px; height:40px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
 		</li>
 		<li istrue="false" class="oli">
-			<div style="width:10%; height:30px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
+			<div style="width:40px; height:40px; background:red; position:absolute;left:70%; top:0px;" class="moveblock"></div>
 		</li>
 	</ol>
 </body>
